@@ -3,6 +3,7 @@
 
   angular.module('ShoppingListCheckOff', [])
   .controller('ToBuyController', ToBuyController)
+  .controller('AlreadyBoughtController', AlreadyBoughtController)
   .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
   ToBuyController.$inject = ['ShoppingListCheckOffService'];
@@ -18,9 +19,25 @@
 
    itemAdder.items = ShoppingListCheckOffService.getToBuyList();
 
+
+   itemAdder.addBoughtList = function(itemIndex){
+     ShoppingListCheckOffService.addBoughtList(itemIndex);
+     ShoppingListCheckOffService.removeToBuyList(itemIndex);
+   }
+
+   itemAdder.boughtOnes = ShoppingListCheckOffService.getBoughtList();
+
+
   };
 
+  AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];;
+  function AlreadyBoughtController(ShoppingListCheckOffService){
+    var boughtItems = this;
 
+    boughtItems.tobuyList = ShoppingListCheckOffService.getToBuyList();
+
+    boughtItems.items =  ShoppingListCheckOffService.getBoughtList();
+  };
 
   function ShoppingListCheckOffService() {
     var service = this;
@@ -28,7 +45,7 @@
     // List of toBuy items
     var toBuyList = [];
     // List of Bought items
-    var BoughtList = [];
+    var boughtList = [];
 
     // add item to toBuyList
     service.addItem = function (itemName, quantity) {
@@ -44,9 +61,21 @@
       return toBuyList;
     };
 
-    // service.removeItem = function (itemIdex) {
-    //   items.splice(itemIdex, 1);
-    // };
+      //remove from toBuyList
+    service.removeToBuyList = function (itemIdex) {
+      toBuyList.splice(itemIdex, 1);
+    };
+
+      //add to bought list
+    service.addBoughtList = function (itemIndex) {
+        boughtList.push(toBuyList[itemIndex]);
+        console.log(boughtList);
+      };
+
+      //Get the whole boughtList items
+    service.getBoughtList = function () {
+      return boughtList;
+    };
 
   };
 

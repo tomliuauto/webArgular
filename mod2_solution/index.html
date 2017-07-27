@@ -35,17 +35,33 @@
      <h2>To Buy:</h2>
      <input type="text" ng-model="itemAdder.itemName" placeholder="item name">
      <input type="text" ng-model="itemAdder.itemQuantity" placeholder="quantity">
-     <button class="btn btn-default" ng-click="itemAdder.addItem();"><span class="glyphicon glyphicon-ok"></span>Add to List</button>
+     <button class="btn btn-default" ng-click="itemAdder.addItem();"><span class="glyphicon glyphicon-ok"></span>Add to BoughtList</button>
      <ul>
-        <li ng-repeat="item in itemAdder.items">{{ item.name }} by {{item.quantity}}<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+        <li ng-repeat="item in itemAdder.items">{{ item.name }} by {{item.quantity}}<button class="btn btn-default" ng-click="itemAdder.addBoughtList($index);"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
       </ul>
+
+      <h2>boughtlist<h2>
+        <ul>
+           <li ng-repeat="item in itemAdder.boughtOnes">{{ item.name }} by {{item.quantity}}</li>
+         </ul>
 
      <div class="emptyMessage">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
-    <div class="col-md-6">
+    <div class="col-md-6" ng-controlle=' AlreadyBoughtController as boughtItems'>
+      <h2>To Buy list from boughtItems</h2>
+      <ul>
+         <li ng-repeat="item in boughtItems.tobuyList">{{ item.name }} by {{item.quantity}}</li>
+       </ul>
+
      <h2>Already Bought:</h2>
+        {{boughtItems.items}}
+
+      <ul>
+        <li ng-repeat="item in boughtItems.items">{{ item.name }} by {{item.quantity}}<button class="btn btn-default" ng-click="itemAdder.addBoughtList($index);"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+      </ul>
+
      <ul>
        <li>Bought 10 cookies</li>
      </ul>
