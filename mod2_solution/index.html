@@ -49,7 +49,7 @@
                 </div>
 
                 <!-- Already Bought List -->
-                <div class="col-md-6" ng-controlle=' AlreadyBoughtController as boughtItems'>
+                <div class="col-md-6" ng-controller='AlreadyBoughtController as boughtItems'>
                         <h2>To Buy list from boughtItems</h2>
                             <ul>
                                <li ng-repeat="item in boughtItems.tobuyList">{{ item.name }} by {{item.quantity}}</li>
