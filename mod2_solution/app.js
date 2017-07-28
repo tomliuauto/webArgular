@@ -43,9 +43,18 @@
     var service = this;
 
     // List of toBuy items
-    var toBuyList = [];
+    var toBuyList = [
+      {
+        name:"book",
+        quantity:6
+      }
+
+    ];
+
     // List of Bought items
     var boughtList = [];
+
+
 
     // add item to toBuyList
     service.addItem = function (itemName, quantity) {
