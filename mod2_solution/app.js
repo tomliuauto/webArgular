@@ -47,7 +47,23 @@
       {
         name:"book",
         quantity:6
-      }
+      },
+      {
+        name:"cookies",
+        quantity:3
+      },
+      {
+        name:"breads",
+        quantity:1
+      },
+      {
+        name:"milk",
+        quantity:1
+      },
+      {
+        name:"pizza",
+        quantity:2
+      },
 
     ];
 
