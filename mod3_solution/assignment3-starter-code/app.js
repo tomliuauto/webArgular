@@ -12,7 +12,9 @@ function NarrowItDownController(MenuSearchService){
   // console.log("this is Ok")
   controller.search = function (){
     // console.log(controller.searchTerm);
-    console.log(MenuSearchService.getMatchedMenuItems());
+    // console.log("you click the search key");
+    var promise = MenuSearchService.getMatchedMenuItems();
+    console.log(promise);
   };
 
 };
@@ -24,7 +26,7 @@ function MenuSearchService ($http){
 
   service.getMatchedMenuItems = function(){
     // console.log(term);
-    $http({
+    return $http({
       method: "GET",
       url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
     }).then(function (response) {
