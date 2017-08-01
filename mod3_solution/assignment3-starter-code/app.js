@@ -11,9 +11,9 @@ function NarrowItDownController(MenuSearchService){
   controller.searchTerm = " ";
   // console.log("this is Ok")
   controller.search = function (){
-    // console.log(controller.searchTerm);
+    console.log(controller.searchTerm);
     // console.log("you click the search key");
-    var promise = MenuSearchService.getMatchedMenuItems();
+    var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
     console.log(promise);
   };
 
@@ -24,7 +24,7 @@ function MenuSearchService ($http){
   var service = this;
   var message = "";
 
-  service.getMatchedMenuItems = function(){
+  service.getMatchedMenuItems = function(rearchItem){
     // console.log(term);
     return $http({
       method: "GET",
@@ -34,7 +34,7 @@ function MenuSearchService ($http){
       var foundItems = [];
       response.data.menu_items.forEach(function(item){
         // console.log(item)
-        if (item.description.toLowerCase().indexOf('chicken') !== -1){
+        if (item.description.toLowerCase().indexOf(rearchItem.toLowerCase()) !== -1){
           // console.log(item);
           foundItems.push(item);
           
