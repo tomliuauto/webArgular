@@ -1,10 +1,15 @@
 <ol>
-    <li ng-repeat="item in controller.items" >
-    <!-- <found-details></found-details> -->
-
-    <h3>{{item.name}}</h3>
+    <!-- <li ng-repeat="item in controller.items" >
+    <!-- <h3>{{item.name}}</h3>
     <h4>{{item.short_name}}</h4>
-    <p>{{item.description}}</P>
-    <button class="btn btn-primary" ng-click="controller.removeItem($index)">Don't want this one!</button>
-  </li>
+    <p>{{item.description}}</P> -->
+    <!-- <button class="btn btn-primary" ng-click="controller.removeItem($index)">Don't want this one!</button>
+    </li> -->
+
+    <li ng-repeat="item in Mcontrol.items">
+      <h3>{{item.name}}</h3>
+      <h4>{{item.short_name}}</h4>
+      <p>{{item.description}}</P>
+      <button class="btn btn-primary" ng-click="controller.removeItem($index)">Don't want this one!</button>
+      </li>
 </ol>

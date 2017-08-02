@@ -6,28 +6,31 @@ angular.module('NarrowItDownApp', [])
 .service('MenuSearchService', MenuSearchService)
 .directive('foundItems', FoundItems);
 
-
+//
 
 function FoundItems() {
   var ddo = {
-    // scope:{
-    //   items: '<',
-    //   searchTerm: '@'
-    // },
-    // controller: MenuController,
-    // controllerAs: 'Mcontrol',
-    // bindToController: true,
-    templateUrl: 'listItem.html'
+
+    scope: {
+      items: '=',
+    },
+    controller: MenuController,
+    controllerAs: 'Mcontrol',
+    bindToController: true,
+    templateUrl: 'listItem.html',
+    // template:{{Mcontrol.items}}
+
   };
 
   return ddo;
 }
 
-// function MenuController() {
-//   var Mcontrol = this;
-//   console.log(Mcontrol);
-//   }
-// }
+function MenuController() {
+  var Mcontrol = this;
+  console.log(Mcontrol);
+  // console.log(Mcontrol.items.length);
+
+};
 
 
 
@@ -36,6 +39,7 @@ function NarrowItDownController(MenuSearchService){
   var controller = this;
   controller.searchTerm = " ";
   controller.items = [];
+  // controller.testItem = [ "ford", "honda", "BMW"];
 
   controller.search = function (){
     console.log(controller.searchTerm);
