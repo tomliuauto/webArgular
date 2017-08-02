@@ -13,6 +13,7 @@ function FoundItems() {
 
     scope: {
       items: '=',
+      remove: '&remove'
     },
     controller: MenuController,
     controllerAs: 'Mcontrol',
