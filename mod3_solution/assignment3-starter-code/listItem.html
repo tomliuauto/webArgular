@@ -12,4 +12,8 @@
       <p>{{item.description}}</P>
       <button class="btn btn-primary" ng-click="Mcontrol.remove({itemIndex:$index})">Don't want this one!</button>
     </li>
+    <!-- length : {{Mcontrol.items.length}} -->
 </ol>
+<h3>
+    <div class="error" ng-if="Mcontrol.check()">Nothing found</div>
+</h3>

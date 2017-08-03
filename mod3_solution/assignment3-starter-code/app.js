@@ -13,13 +13,15 @@ function FoundItems() {
 
     scope: {
       items: '=',
-      remove: '&remove'
+      remove: '&remove',
+      searchTerm:'@'
+
     },
     controller: MenuController,
     controllerAs: 'Mcontrol',
     bindToController: true,
     templateUrl: 'listItem.html',
-    // template:{{Mcontrol.items}}
+
 
   };
 
@@ -28,8 +30,14 @@ function FoundItems() {
 
 function MenuController() {
   var Mcontrol = this;
-  console.log(Mcontrol);
-  // console.log(Mcontrol.items.length);
+
+Mcontrol.check = function () {
+  if(Mcontrol.items.length ==0 || Mcontrol.searchTerm == "" ){
+    return true;
+    console.log('nothong');
+  }
+  return false;
+}
 
 };
 
@@ -69,26 +77,33 @@ function MenuSearchService ($http){
   service.getMatchedMenuItems = function(rearchItem){
     // console.log(term);
     var foundItems = [];
-    $http({
-      method: "GET",
-      url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
-    }).then(function (response) {
-      // console.log(response.data.menu_items);
-      // var foundItems = [];
-      response.data.menu_items.forEach(function(item){
-        // console.log(item)
-        if (item.description.toLowerCase().indexOf(rearchItem.toLowerCase()) !== -1){
-          // console.log(item);
-          foundItems.push(item);
-        }
 
+    if(rearchItem && typeof(rearchItem)!=="undefined"){
+
+      $http({
+        method: "GET",
+        url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
+      }).then(function (response) {
+        // console.log(response.data.menu_items);
+        // var foundItems = [];
+        response.data.menu_items.forEach(function(item){
+          // console.log(item)
+
+          if (item.description.toLowerCase().indexOf(rearchItem.toLowerCase()) !== -1  ){
+            // console.log(item);
+            foundItems.push(item);
+          }
+        })
+          // console.log(foundItems);
+          return foundItems;
       })
-        // console.log(foundItems);
-        return foundItems;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    }
+
+
     console.log(foundItems);
     return foundItems;
   }
