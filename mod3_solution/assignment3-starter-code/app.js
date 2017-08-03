@@ -78,7 +78,7 @@ function MenuSearchService ($http){
     // console.log(term);
     var foundItems = [];
 
-    if(rearchItem && typeof(rearchItem)!=="undefined"){
+    // if(rearchItem && typeof(rearchItem)!=="undefined"){
 
       $http({
         method: "GET",
@@ -101,7 +101,7 @@ function MenuSearchService ($http){
         console.log(error);
       });
 
-    }
+    // }
 
 
     console.log(foundItems);
