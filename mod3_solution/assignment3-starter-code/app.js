@@ -12,7 +12,7 @@ function FoundItems() {
   var ddo = {
 
     scope: {
-      items: '=',
+      items: '<',
       remove: '&remove',
       searchTerm:'@'
 
@@ -31,13 +31,13 @@ function FoundItems() {
 function MenuController() {
   var Mcontrol = this;
 
-Mcontrol.check = function () {
-  if(Mcontrol.items.length ==0 || Mcontrol.searchTerm == "" ){
-    return true;
-    console.log('nothong');
-  }
-  return false;
-}
+// Mcontrol.check = function () {
+//   if(Mcontrol.found.length ==0 || Mcontrol.searchTerm == "" ){
+//     return true;
+//     console.log('nothing found');
+//   }
+//   return false;
+// }
 
 };
 
@@ -47,23 +47,28 @@ NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService){
   var controller = this;
   controller.searchTerm = " ";
-  controller.items = [];
-  // controller.testItem = [ "ford", "honda", "BMW"];
+  controller.found = [];
+
 
   controller.search = function (){
-    console.log(controller.searchTerm);
-    controller.items = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
-    console.log(controller.items);
+
+    var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+    console.log(promise);
+    promise.then(function(result){
+      controller.found = result.data;
+      console.log(controller.found);
+    })
+
 
   };
 
   controller.getItems = function (){
-    return controller.items;
+    return controller.found;
   }
 
 
   controller.removeItem = function(itemIndex){
-    controller.items.splice(itemIndex, 1);
+    controller.found.splice(itemIndex, 1);
   }
 
 };
@@ -75,17 +80,13 @@ function MenuSearchService ($http){
   var message = "";
 
   service.getMatchedMenuItems = function(rearchItem){
-    // console.log(term);
-    var foundItems = [];
 
-    // if(rearchItem && typeof(rearchItem)!=="undefined"){
-
-      $http({
+    return  $http({
         method: "GET",
         url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
       }).then(function (response) {
-        // console.log(response.data.menu_items);
-        // var foundItems = [];
+        console.log(response.data);
+        var foundItems = [];
         response.data.menu_items.forEach(function(item){
           // console.log(item)
 
@@ -94,18 +95,13 @@ function MenuSearchService ($http){
             foundItems.push(item);
           }
         })
-          // console.log(foundItems);
+          console.log(foundItems);
           return foundItems;
       })
       .catch(function (error) {
         console.log(error);
       });
 
-    // }
-
-
-    console.log(foundItems);
-    return foundItems;
   }
 
   // service.removeItem = function (itemIndex) {
