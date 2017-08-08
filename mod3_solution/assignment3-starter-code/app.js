@@ -52,16 +52,17 @@ function NarrowItDownController(MenuSearchService){
 
   controller.search = function (){
 
-    controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
-    console.log(controller.found);
-    // var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
-    // // console.log(promise);
-    // promise.then(function(response){
-    //   controller.found = response.data;
-    //   console.log(controller.found);
-    // })
-    // .catch(function (error) {
-    // console.log(error);
+    // controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+    // console.log(controller.found);
+    var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+    console.log(promise);
+    promise.then(function(response){
+      console.log(response.data);
+      controller.found = response.data;
+      console.log(controller.found);
+    })
+    .catch(function (error) {
+    console.log(error);
     // });
     
     // promise.then(function (response) {
@@ -69,7 +70,7 @@ function NarrowItDownController(MenuSearchService){
     // })
     // .catch(function (error) {
     // console.log("Something went terribly wrong.");
-    // });
+    });
 
 
   };
@@ -95,7 +96,7 @@ function MenuSearchService ($http){
   service.getMatchedMenuItems = function(rearchItem){
     service.items = [];
     
-      return $http({
+    return $http({
         method: "GET",
         url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
       }).then(function (response) {
@@ -117,8 +118,8 @@ function MenuSearchService ($http){
       .catch(function (error) {
         console.log(error);
       });
-      console.log(service.items);
-      return service.items;
+      // console.log(service.items);
+      // return service.items;
   }
 
   // service.removeItem = function (itemIndex) {
