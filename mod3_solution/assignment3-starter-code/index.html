@@ -23,6 +23,9 @@
     <br>
     <found-items items="controller.getItems()" remove ="controller.removeItem(itemIndex)" search-term = "controller.searchTerm"></found-items>
 
+    <h3>
+        <div class="error" ng-if="controller.ifNothing">Nothing found</div>
+    </h3>
 
 
 

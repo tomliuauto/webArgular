@@ -1,14 +1,11 @@
 <ol>
 
-    <h2>this is Menu List</h2>
+    <!-- <h2>this is Menu List</h2> -->
     <li ng-repeat="item in Mcontrol.items">
       <h3>{{item.name}}</h3>
       <h4>{{item.short_name}}</h4>
       <p>{{item.description}}</P>
       <button class="btn btn-primary" ng-click="Mcontrol.remove({itemIndex:$index})">Don't want this one!</button>
     </li>
-    length : {{Mcontrol.items.length}}
+    <!-- length : {{Mcontrol.items.length}} -->
 </ol>
-<h3>
-    <div class="error" ng-if="Mcontrol.check()">Nothing found</div>
-</h3>

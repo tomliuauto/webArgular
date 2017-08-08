@@ -31,14 +31,14 @@ function FoundItems() {
 function MenuController() {
   var Mcontrol = this;
 
-Mcontrol.check = function () {
-  if(Mcontrol.items.length ===0 || Mcontrol.searchTerm){
-    console.log('nothing found');
-    return true;
-
-  }
-  return false;
-}
+// Mcontrol.check = function () {
+//   if(Mcontrol.items.length ===0 || Mcontrol.searchTerm){
+//     console.log('nothing found');
+//     return true;
+//
+//   }
+//   return false;
+// }
 
 };
 
@@ -47,14 +47,27 @@ Mcontrol.check = function () {
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService){
   var controller = this;
-  controller.searchTerm = " ";
+  controller.searchTerm = "";
   controller.found = [];
+  controller.ifNothing = false;
 
+  controller.checkItems = function(){
+    if(!controller.found){
+      return true;
+    }
+
+  };
 
   controller.search = function (){
 
     controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
     console.log(controller.found);
+    console.log("found" + " " +controller.found.length);
+    console.log(typeof controller.found);
+    controller.ifNothing = controller.checkItems();
+    console.log(controller.ifNothing);
+    console.log("found" + " " +controller.found.length);
+    console.log("searchTerm" + " " +controller.searchTerm.length);
 
   };
 
@@ -83,11 +96,13 @@ function MenuSearchService ($http){
         method: "GET",
         url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
       }).then(function (response) {
-        console.log(response.data);
-        response.data.menu_items.forEach(function(item){
-          // console.log(item)
+        // console.log(response.data);
 
-          if (item.description.toLowerCase().indexOf(rearchItem.toLowerCase()) !== -1  ){
+        console.log("rearchItem " + rearchItem.length);
+        console.log(rearchItem);
+        response.data.menu_items.forEach(function(item){
+
+          if (item.description.toLowerCase().indexOf(rearchItem.toLowerCase()) !== -1 && rearchItem.length != 0  ){
             // console.log(item);
             foundItems.push(item);
           }
