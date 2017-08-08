@@ -52,17 +52,17 @@ function NarrowItDownController(MenuSearchService){
 
   controller.search = function (){
 
-    // controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
-    // console.log(controller.found);
-    var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
-    console.log(promise);
-    promise.then(function(response){
-      console.log(response.data);
-      controller.found = response.data;
-      console.log(controller.found);
-    })
-    .catch(function (error) {
-    console.log(error);
+    controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+    console.log(controller.found);
+    // var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+    // console.log(promise);
+    // promise.then(function(response){
+    //   console.log(response.data);
+    //   controller.found = response.data;
+    //   console.log(controller.found);
+    // })
+    // .catch(function (error) {
+    // console.log(error);
     // });
     
     // promise.then(function (response) {
@@ -70,7 +70,7 @@ function NarrowItDownController(MenuSearchService){
     // })
     // .catch(function (error) {
     // console.log("Something went terribly wrong.");
-    });
+    // });
 
 
   };
@@ -94,14 +94,13 @@ function MenuSearchService ($http){
   
 
   service.getMatchedMenuItems = function(rearchItem){
-    service.items = [];
+    var foundItems = [];
     
-    return $http({
+     $http({
         method: "GET",
         url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
       }).then(function (response) {
         console.log(response.data);
-        var foundItems = [];
         response.data.menu_items.forEach(function(item){
           // console.log(item)
 
@@ -111,15 +110,13 @@ function MenuSearchService ($http){
           }
         })
           console.log(foundItems);
-          service.items = foundItems;
-          console.log(service.items);
-          return service.items;
+          return foundItems;
       })
       .catch(function (error) {
         console.log(error);
       });
-      // console.log(service.items);
-      // return service.items;
+      console.log(service.items);
+      return foundItems;
   }
 
   // service.removeItem = function (itemIndex) {
