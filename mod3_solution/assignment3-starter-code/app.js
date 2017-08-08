@@ -54,25 +54,7 @@ function NarrowItDownController(MenuSearchService){
 
     controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
     console.log(controller.found);
-    // var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
-    // console.log(promise);
-    // promise.then(function(response){
-    //   console.log(response.data);
-    //   controller.found = response.data;
-    //   console.log(controller.found);
-    // })
-    // .catch(function (error) {
-    // console.log(error);
-    // });
-    
-    // promise.then(function (response) {
-    // menu.categories = response.data;
-    // })
-    // .catch(function (error) {
-    // console.log("Something went terribly wrong.");
-    // });
-
-
+  
   };
 
   controller.getItems = function (){
@@ -91,11 +73,11 @@ MenuSearchService.$inject = ['$http'];
 function MenuSearchService ($http){
   var service = this;
   var message = "";
-  
+
 
   service.getMatchedMenuItems = function(rearchItem){
     var foundItems = [];
-    
+
      $http({
         method: "GET",
         url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
