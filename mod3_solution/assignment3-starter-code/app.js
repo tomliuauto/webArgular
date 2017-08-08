@@ -26,18 +26,19 @@ function FoundItems() {
   };
 
   return ddo;
-}
+};
 
 function MenuController() {
   var Mcontrol = this;
 
-// Mcontrol.check = function () {
-//   if(Mcontrol.found.length ==0 || Mcontrol.searchTerm == "" ){
-//     return true;
-//     console.log('nothing found');
-//   }
-//   return false;
-// }
+Mcontrol.check = function () {
+  if(Mcontrol.items.length ===0 || Mcontrol.searchTerm){
+    console.log('nothing found');
+    return true;
+
+  }
+  return false;
+}
 
 };
 
@@ -54,7 +55,7 @@ function NarrowItDownController(MenuSearchService){
 
     controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
     console.log(controller.found);
-  
+
   };
 
   controller.getItems = function (){
@@ -97,7 +98,7 @@ function MenuSearchService ($http){
       .catch(function (error) {
         console.log(error);
       });
-      console.log(service.items);
+      console.log(foundItems);
       return foundItems;
   }
 
