@@ -52,22 +52,40 @@ function NarrowItDownController(MenuSearchService){
   controller.ifNothing = false;
 
   controller.checkItems = function(){
-    if(!controller.found){
-      return true;
+    console.log(typeof controller.found);
+    console.log(controller.found);
+    console.log(controller.found.length);
+
+    if(controller.found.length == 0){
+      console.log("found length" + " " + controller.found.length);
+      // return true;
+      return controller.ifNothing = true;
+    }else {
+      return controller.ifNothing = false;
+
     }
 
   };
 
   controller.search = function (){
 
-    controller.found = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+    var promise = MenuSearchService.getMatchedMenuItems(controller.searchTerm);
+        promise.then(function (response) {
+          controller.found = response;
+          console.log(controller.found);
+          console.log(controller.found.length);
+          console.log(typeof controller.found);
+          controller.checkItems();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
     console.log(controller.found);
-    console.log("found" + " " +controller.found.length);
-    console.log(typeof controller.found);
-    controller.ifNothing = controller.checkItems();
-    console.log(controller.ifNothing);
-    console.log("found" + " " +controller.found.length);
-    console.log("searchTerm" + " " +controller.searchTerm.length);
+    console.log(controller.found.length);
+    console.log(controller.found.length == 0);
+
+
 
   };
 
@@ -90,16 +108,17 @@ function MenuSearchService ($http){
 
 
   service.getMatchedMenuItems = function(rearchItem){
-    var foundItems = [];
+    // var foundItems = [];
 
-     $http({
+    return $http({
         method: "GET",
         url: ("https://davids-restaurant.herokuapp.com/menu_items.json")
       }).then(function (response) {
+        var foundItems = [];
         // console.log(response.data);
 
-        console.log("rearchItem " + rearchItem.length);
-        console.log(rearchItem);
+        // console.log("rearchItem " + rearchItem.length);
+        // console.log(rearchItem);
         response.data.menu_items.forEach(function(item){
 
           if (item.description.toLowerCase().indexOf(rearchItem.toLowerCase()) !== -1 && rearchItem.length != 0  ){
@@ -113,8 +132,8 @@ function MenuSearchService ($http){
       .catch(function (error) {
         console.log(error);
       });
-      console.log(foundItems);
-      return foundItems;
+      // console.log(foundItems);
+      // return foundItems;
   }
 
   // service.removeItem = function (itemIndex) {
