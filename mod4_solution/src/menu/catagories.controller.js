@@ -6,7 +6,7 @@ angular.module('MenuApp')
 
 
 catagoriesController.$inject = ['items'];
-function MainShoppingListController(items) {
+function catagoriesController(items) {
   var cataList = this;
   cataList.items = items;
 }
