@@ -8,16 +8,22 @@ angular.module('data')
 MenuDataService.$inject = ['$http']
 function MenuDataService($http) {
   var service = this;
-
+ 
   service.getAllCategories = function () {
-
-    var response = $http({
+     
+     
+     return $http({
       method: "GET",
       url: ("https://davids-restaurant.herokuapp.com/categories.json")
-    });
-
-    return response.data;
+    }).then(function(result){
+      var a = result.data;
+      console.log(a);
+      return a;
+    })
+    
+   
   };
+
 
 
   service.getItemsForCategory = function (categoryShortName) {
