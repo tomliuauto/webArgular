@@ -10,14 +10,21 @@ function MenuDataService($http) {
   var service = this;
 
   service.getAllCategories = function () {
+     var a = [];
 
-    var response = $http({
+     return $http({
       method: "GET",
       url: ("https://davids-restaurant.herokuapp.com/categories.json")
-    });
+    }).then(function(result){
+      a = result.data;
+      console.log(a);
+      return a;
+    })
 
-    return response.data;
+    // return a;
+
   };
+
 
 
   service.getItemsForCategory = function (categoryShortName) {

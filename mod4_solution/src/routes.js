@@ -16,16 +16,16 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   // Home page
   .state('home', {
     url: '/',
-    templateUrl: 'src/menu/templates/home.template.html'
+    templateUrl: 'src/menu/views/home.view.html'
   })
 
   // categoeries list page
-  .state('catagories', {
-    url: '/catagories',
-    templateUrl: 'src/menu/templates/catagories.template.html',
-    controller: 'catagoriesController as cataList',
+  .state('categories', {
+    url: '/categories',
+    templateUrl: 'src/menu/views/categories.view.html',
+    controller: 'categoriesController as cc',
     resolve: {
-      items: ['MenuDataService', function (MenuDataService) {
+      categories: ['MenuDataService', function (MenuDataService) {
         return MenuDataService.getAllCategories();
       }]
     }
@@ -35,7 +35,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   // items list
   // .state('mainList.itemDetail', {
   //   url: '/item-detail/{itemId}',
-  //   templateUrl: 'src/shoppinglist/templates/item-detail.template.html',
+  //   templateUrl: 'src/shoppinglist/views/item-detail.template.html',
   //   controller: "ItemDetailController as itemDetail"
   // });
 
