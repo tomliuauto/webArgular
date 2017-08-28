@@ -27,16 +27,21 @@ function MenuDataService($http) {
 
 
 
-  service.getItemsForCategory = function (categoryShortName) {
-    var response = $http({
-      method: "GET",
-      url: (ApiBasePath + "/menu_items.json"),
-      params: {
-        category: categoryShortName
-      }
-    });
+  service.getItemsForCategory = function (shortName) {
+    var b = [];
 
-    return response.data;
+    return $http({
+      method: "GET",
+      url: ("https://davids-restaurant.herokuapp.com/menu_items.json"),
+      params: {
+        category: shortName
+      }
+    }).then(function(result){
+      b = result.data;
+      console.log(b);
+      return b;
+    })
+
   };
 
 }

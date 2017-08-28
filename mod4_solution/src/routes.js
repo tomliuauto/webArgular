@@ -33,11 +33,16 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
 
   // items list
-  // .state('mainList.itemDetail', {
-  //   url: '/item-detail/{itemId}',
-  //   templateUrl: 'src/shoppinglist/views/item-detail.template.html',
-  //   controller: "ItemDetailController as itemDetail"
-  // });
+  .state('items', {
+    url: '/items/{shortname}',
+    templateUrl: 'src/menu/views/items.view.html',
+    controller: "itemsController as ic",
+    resolve: {
+      items:['$stateParams','MenuDataService', function ($stateParams, MenuDataService) {
+        return MenuDataService.getItemsForCategory($stateParams.shortname);
+      }]
+    }
+  });
 
 }
 
